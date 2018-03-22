@@ -45,7 +45,7 @@ public class MainCadController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/getSchema/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getSchema/{id}", method = RequestMethod.GET)
     public Schema getSchema(@PathVariable Integer id) throws Exception {
         if (id == null || id < 1 || id > 2) {
             throw new Exception(String.format("No schema with such id '%d'", id));
@@ -56,7 +56,7 @@ public class MainCadController {
         throw new Exception("Schema 2 in TODO state");
     }
 
-    @RequestMapping(value = "/saveSchema/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/saveSchema/{id}", method = RequestMethod.POST)
     public void saveBox(@PathVariable Integer id, Schema schema) throws Exception {
         if (id == 1) {
             schema1 = schema;
@@ -64,113 +64,113 @@ public class MainCadController {
         throw new Exception("Schema 2 in TODO state");
     }
 
-    @RequestMapping(value = "/getBox/{schemaId}/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getBox/{schemaId}/{id}", method = RequestMethod.GET)
     public Box getBoxById(@PathVariable Integer schemaId, @PathVariable Integer id) {
         return boxesDB.getEntityById(schemaId, id);
     }
 
-    @RequestMapping(value = "/getBoxes/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getBoxes/{id}", method = RequestMethod.GET)
     public List<Box> getBoxesBySchemaId(@PathVariable Integer id) {
         return boxesDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/saveBox/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/saveBox/{id}", method = RequestMethod.POST)
     public void saveBox(@PathVariable Integer id, Box box) {
         box.setSchemaId(id);
         boxesDB.updateOrSaveEntity(box);
     }
 
-    @RequestMapping(value = "/getInsideBox/{schemaId}/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getInsideBox/{schemaId}/{id}", method = RequestMethod.GET)
     public InsideBox getInsideBoxById(@PathVariable Integer schemaId, @PathVariable Integer id) {
         return insideBoxesDB.getEntityById(schemaId, id);
     }
 
-    @RequestMapping(value = "/getInsideBoxes/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getInsideBoxes/{id}", method = RequestMethod.GET)
     public List<InsideBox> getInsideBoxesBySchemaId(@PathVariable Integer id) {
         return insideBoxesDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/saveInsideBox/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/saveInsideBox/{id}", method = RequestMethod.POST)
     public void saveInsideBox(@PathVariable Integer id, InsideBox box) {
         box.setSchemaId(id);
         insideBoxesDB.updateOrSaveEntity(box);
     }
 
-    @RequestMapping(value = "/getBuildingArea/{schemaId}/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getBuildingArea/{schemaId}/{id}", method = RequestMethod.GET)
     public BuildingArea getBuildingAreaById(@PathVariable Integer schemaId, @PathVariable Integer id) {
         return buildingAreasDB.getEntityById(schemaId, id);
     }
 
-    @RequestMapping(value = "/getBuildingAreas/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getBuildingAreas/{id}", method = RequestMethod.GET)
     public List<BuildingArea> getBuildingAreasBySchemaId(@PathVariable Integer id) {
         return buildingAreasDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/saveBuildingArea/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/saveBuildingArea/{id}", method = RequestMethod.POST)
     public void saveBuildingArea(@PathVariable Integer id, BuildingArea area) {
         area.setSchemaId(id);
         buildingAreasDB.updateOrSaveEntity(area);
     }
 
-    @RequestMapping(value = "/getNetwork/{schemaId}/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getNetwork/{schemaId}/{id}", method = RequestMethod.GET)
     public Network getNetworkById(@PathVariable Integer schemaId, @PathVariable Integer id) {
         return networksDB.getEntityById(schemaId, id);
     }
 
-    @RequestMapping(value = "/getNetworks/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getNetworks/{id}", method = RequestMethod.GET)
     public List<Network> getNetworkBySchemaId(@PathVariable Integer id) {
         return networksDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/saveNetwork/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/saveNetwork/{id}", method = RequestMethod.POST)
     public void saveNetwork(@PathVariable Integer id, Network net) {
         net.setSchemaId(id);
         networksDB.updateOrSaveEntity(net);
     }
 
-    @RequestMapping(value = "/getConnectedLine/{schemaId}/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getConnectedLine/{schemaId}/{id}", method = RequestMethod.GET)
     public ConnectedLine getConnectedLinesById(@PathVariable Integer schemaId, @PathVariable Integer id) {
         return connectedLinesDB.getEntityById(schemaId, id);
     }
 
-    @RequestMapping(value = "/getConnectedLines/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getConnectedLines/{id}", method = RequestMethod.GET)
     public List<ConnectedLine> getConnectedLinesBySchemaId(@PathVariable Integer id) {
         return connectedLinesDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/saveConnectedLine/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/saveConnectedLine/{id}", method = RequestMethod.POST)
     public void saveConnectedLine(@PathVariable Integer id, ConnectedLine line) {
         line.setSchemaId(id);
         connectedLinesDB.updateOrSaveEntity(line);
     }
 
-    @RequestMapping(value = "/getStepPoint/{schemaId}/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getStepPoint/{schemaId}/{id}", method = RequestMethod.GET)
     public StepPoint getStepPointById(@PathVariable Integer schemaId, @PathVariable Integer id) {
         return stepPointsDB.getEntityById(schemaId, id);
     }
 
-    @RequestMapping(value = "/getStepPoints/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getStepPoints/{id}", method = RequestMethod.GET)
     public List<StepPoint> getStepPointsBySchemaId(@PathVariable Integer id) {
         return stepPointsDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/saveStepPoint/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/saveStepPoint/{id}", method = RequestMethod.POST)
     public void saveStepPoint(@PathVariable Integer id, StepPoint point) {
         point.setSchemaId(id);
         stepPointsDB.updateOrSaveEntity(point);
     }
 
-    @RequestMapping(value = "/getWalker/{schemaId}/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getWalker/{schemaId}/{id}", method = RequestMethod.GET)
     public Walker getWalkerById(@PathVariable Integer schemaId, @PathVariable Integer id) {
         return walkersDB.getEntityById(schemaId, id);
     }
 
-    @RequestMapping(value = "/getWalkers/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getWalkers/{id}", method = RequestMethod.GET)
     public List<Walker> getWalkersBySchemaId(@PathVariable Integer id) {
         return walkersDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/saveWalker/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/saveWalker/{id}", method = RequestMethod.POST)
     public void saveWalker(@PathVariable Integer id, Walker walker) {
         walker.setSchemaId(id);
         walkersDB.updateOrSaveEntity(walker);

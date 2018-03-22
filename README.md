@@ -14,12 +14,12 @@ From start based project contains mocked data of schema-1 for draw, manipulation
 representation. 
 Each `Schema` object contains property for grid drawing (to see more details about
 properties, check comments @see `Schema.java`).
-To start draw schema grid, select schema object using: `/getSchema/{id}` call 
+To start draw schema grid, select schema object using: `/api/getSchema/{id}` call 
 (@see `MainCadController.java`). Main properties of grid: `sizeX`, `sizeY`, `gridStepX`, `gridStepY`,
 `disableDeleting`.
 **All objects properties should be shown in a right-side panel with button save and editable fields related 
 to each property. If no object was selected, by default show Schema properties, as it is 'unselectable'.**
-To save Schema object use `/saveSchema/{id}` call, same pattern for manipulation with data is used for all other
+To save Schema object use `/api/saveSchema/{id}` call, same pattern for manipulation with data is used for all other
 objects:
 - BuildingArea (@see `BuildingArea.java`), rectangle that represents limited space for placement of other objects.
 - Box (@see `Box.java`), rectangle that represents container of {@see `InsideBox`}es, 
@@ -38,10 +38,10 @@ linked by {@see `ConnectedLine`}s between each other. Also include property whic
 which usually is part of {@see `ConnectedLine`}.
 - ConnectedLine (@see `ConnectedLine.java`) - object, which represent directed or not line, with start and end 
 {@see `StepPoint`}.
-<br><br>To retrieve any objects by schema Id use GET request call like `/get{EntityName}s/{id}`, where {EntityName} is
+<br><br>To retrieve any objects by schema Id use GET request call like `/api/get{EntityName}s/{id}`, where {EntityName} is
 Box, ConnectedLine, StepPoint, Network, ... etc. and {id} - is id of schema, to which such objects are related.
-<br><br>To get single object by schema Id and its id use GET request call like `/get{EntityName}/{schemaId}/{id}`. 
-<br><br>To save any object use POST request call like: `/save{EntityName}/{id}`, where id is schemaId. Such call could
+<br><br>To get single object by schema Id and its id use GET request call like `/api/get{EntityName}/{schemaId}/{id}`. 
+<br><br>To save any object use POST request call like: `/api/save{EntityName}/{id}`, where id is schemaId. Such call could
 be used in both cases, whether we store new or update existing entity.
 
 ### TODO steps.

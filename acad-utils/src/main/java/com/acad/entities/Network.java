@@ -36,4 +36,9 @@ public class Network extends SchemaObject {
      * Just modification and view at UI side panel.
      */
     private String name;
+
+    /**
+     * {@link Walker} type configured for current network object. Just modification and view at UI side panel.
+     */
+    private Integer walkerId;
 }

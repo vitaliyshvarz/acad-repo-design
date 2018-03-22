@@ -23,6 +23,7 @@ import java.util.List;
 @Slf4j
 public class MainCadController {
 
+    private Schema schema1 = DBSimulator.createSchema1();
     private SchemaObjectDB<Box> boxesDB = DBSimulator.getBoxesDB();
     private SchemaObjectDB<InsideBox> insideBoxesDB = DBSimulator.getInsideBoxesDB();
     private SchemaObjectDB<BuildingArea> buildingAreasDB = DBSimulator.getAreasDB();
@@ -50,14 +51,22 @@ public class MainCadController {
             throw new Exception(String.format("No schema with such id '%d'", id));
         }
         if (id == 1) {
-            return DBSimulator.createSchema1();
+            return schema1;
         }
         throw new Exception("Schema 2 in TODO state");
     }
 
-    @RequestMapping(value = "/getBox/{id}", method = RequestMethod.GET)
-    public Box getBoxById(@PathVariable Integer id) {
-        return boxesDB.getEntityById(id);
+    @RequestMapping(value = "/saveSchema/{id}", method = RequestMethod.POST)
+    public void saveBox(@PathVariable Integer id, Schema schema) throws Exception {
+        if (id == 1) {
+            schema1 = schema;
+        }
+        throw new Exception("Schema 2 in TODO state");
+    }
+
+    @RequestMapping(value = "/getBox/{schemaId}/{id}", method = RequestMethod.GET)
+    public Box getBoxById(@PathVariable Integer schemaId, @PathVariable Integer id) {
+        return boxesDB.getEntityById(schemaId, id);
     }
 
     @RequestMapping(value = "/getBoxes/{id}", method = RequestMethod.GET)
@@ -71,9 +80,9 @@ public class MainCadController {
         boxesDB.updateOrSaveEntity(box);
     }
 
-    @RequestMapping(value = "/getInsideBox/{id}", method = RequestMethod.GET)
-    public InsideBox getInsideBoxById(@PathVariable Integer id) {
-        return insideBoxesDB.getEntityById(id);
+    @RequestMapping(value = "/getInsideBox/{schemaId}/{id}", method = RequestMethod.GET)
+    public InsideBox getInsideBoxById(@PathVariable Integer schemaId, @PathVariable Integer id) {
+        return insideBoxesDB.getEntityById(schemaId, id);
     }
 
     @RequestMapping(value = "/getInsideBoxes/{id}", method = RequestMethod.GET)
@@ -87,9 +96,9 @@ public class MainCadController {
         insideBoxesDB.updateOrSaveEntity(box);
     }
 
-    @RequestMapping(value = "/getBuildingArea/{id}", method = RequestMethod.GET)
-    public BuildingArea getBuildingAreaById(@PathVariable Integer id) {
-        return buildingAreasDB.getEntityById(id);
+    @RequestMapping(value = "/getBuildingArea/{schemaId}/{id}", method = RequestMethod.GET)
+    public BuildingArea getBuildingAreaById(@PathVariable Integer schemaId, @PathVariable Integer id) {
+        return buildingAreasDB.getEntityById(schemaId, id);
     }
 
     @RequestMapping(value = "/getBuildingAreas/{id}", method = RequestMethod.GET)
@@ -103,9 +112,9 @@ public class MainCadController {
         buildingAreasDB.updateOrSaveEntity(area);
     }
 
-    @RequestMapping(value = "/getNetwork/{id}", method = RequestMethod.GET)
-    public Network getNetworkById(@PathVariable Integer id) {
-        return networksDB.getEntityById(id);
+    @RequestMapping(value = "/getNetwork/{schemaId}/{id}", method = RequestMethod.GET)
+    public Network getNetworkById(@PathVariable Integer schemaId, @PathVariable Integer id) {
+        return networksDB.getEntityById(schemaId, id);
     }
 
     @RequestMapping(value = "/getNetworks/{id}", method = RequestMethod.GET)
@@ -119,9 +128,9 @@ public class MainCadController {
         networksDB.updateOrSaveEntity(net);
     }
 
-    @RequestMapping(value = "/getConnectedLine/{id}", method = RequestMethod.GET)
-    public ConnectedLine getConnectedLinesById(@PathVariable Integer id) {
-        return connectedLinesDB.getEntityById(id);
+    @RequestMapping(value = "/getConnectedLine/{schemaId}/{id}", method = RequestMethod.GET)
+    public ConnectedLine getConnectedLinesById(@PathVariable Integer schemaId, @PathVariable Integer id) {
+        return connectedLinesDB.getEntityById(schemaId, id);
     }
 
     @RequestMapping(value = "/getConnectedLines/{id}", method = RequestMethod.GET)
@@ -135,9 +144,9 @@ public class MainCadController {
         connectedLinesDB.updateOrSaveEntity(line);
     }
 
-    @RequestMapping(value = "/getStepPoint/{id}", method = RequestMethod.GET)
-    public StepPoint getStepPointById(@PathVariable Integer id) {
-        return stepPointsDB.getEntityById(id);
+    @RequestMapping(value = "/getStepPoint/{schemaId}/{id}", method = RequestMethod.GET)
+    public StepPoint getStepPointById(@PathVariable Integer schemaId, @PathVariable Integer id) {
+        return stepPointsDB.getEntityById(schemaId, id);
     }
 
     @RequestMapping(value = "/getStepPoints/{id}", method = RequestMethod.GET)
@@ -151,9 +160,9 @@ public class MainCadController {
         stepPointsDB.updateOrSaveEntity(point);
     }
 
-    @RequestMapping(value = "/getWalker/{id}", method = RequestMethod.GET)
-    public Walker getWalkerById(@PathVariable Integer id) {
-        return walkersDB.getEntityById(id);
+    @RequestMapping(value = "/getWalker/{schemaId}/{id}", method = RequestMethod.GET)
+    public Walker getWalkerById(@PathVariable Integer schemaId, @PathVariable Integer id) {
+        return walkersDB.getEntityById(schemaId, id);
     }
 
     @RequestMapping(value = "/getWalkers/{id}", method = RequestMethod.GET)

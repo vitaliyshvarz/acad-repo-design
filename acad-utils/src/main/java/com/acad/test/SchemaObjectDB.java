@@ -44,10 +44,10 @@ public class SchemaObjectDB<T extends SchemaObject> {
     }
 
     /**
-     * Returns Entity found in list of objects, by passed-in {@code id},
+     * Returns Entity found in list of objects, by passed-in {@code id} in scope of passed-in {@code schemaId},
      * if there is no entity with such id - return 'null'.
      */
-    public T getEntityById(int id) {
-        return objects.stream().filter(e -> e.getId() == id).findFirst().orElse(null);
+    public T getEntityById(int schemaId, int id) {
+        return objects.stream().filter(e -> e.getSchemaId() == schemaId && e.getId() == id).findFirst().orElse(null);
     }
 }

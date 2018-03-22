@@ -1,0 +1,21 @@
+
+.app {
+  min-height: 100vh;
+  &__sidenav {
+    min-width: 250px;
+    padding: 40px 0;
+    text-align: center;
+
+    &-toggle {
+      margin-right: 20px;
+    }
+  }
+
+  &__header {
+    width: 100%;
+  }
+
+  &__outlet {
+    width: 100%;
+  }
+}

@@ -3,6 +3,7 @@ package com.acad.configs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -30,6 +31,17 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         registry.addViewController("/").setViewName("home");
         registry.addViewController("/home").setViewName("home");
         registry.addViewController("/enter-edit-schema/{id}").setViewName("editor");
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        // Allow all /api calls for CORS mapping.
+        registry.addMapping("/api/**")
+                .allowedOrigins("http://localhost:4200")
+                // TODO change if other types are required.
+                .allowedMethods("GET", "POST")
+                .allowCredentials(false);
+                // TODO: by default used, check if maxAge is required -> [.maxAge(3600)]
     }
 
     /*@Bean

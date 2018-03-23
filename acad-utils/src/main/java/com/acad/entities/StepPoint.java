@@ -70,7 +70,7 @@ public class StepPoint extends SchemaObject {
     /**
      * Color of object body.
      */
-    private String color;
+    private String bodyColor;
 
     /**
      * Color of object borders.

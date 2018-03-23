@@ -84,7 +84,7 @@ public class InsideBox extends SchemaObject {
      * Color of object body.
      */
     @Nullable
-    private String backColor;
+    private String bodyColor;
     /**
      * Color of object borders.
      */

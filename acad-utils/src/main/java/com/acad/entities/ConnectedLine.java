@@ -72,7 +72,7 @@ public class ConnectedLine extends SchemaObject {
     /**
      * Color of object.
      */
-    private String color;
+    private String bodyColor;
 
     /**
      * Width of line for representation.

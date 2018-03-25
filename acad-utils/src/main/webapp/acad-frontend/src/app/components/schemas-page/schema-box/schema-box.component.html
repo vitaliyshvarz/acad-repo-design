@@ -1,0 +1,11 @@
+<div
+  #boxRef
+  class="box-body"
+  [style.backgroundColor]="box.bodyColor"
+  [style.border]="'2px solid' + box.borderColor || 'transparent'"
+  [style.width.px]="box.sizeX"
+  [style.height.px]="box.sizeY"
+  [style.opacity]="box.solid ? '1' : '0.1'"
+>
+  <ng-content *ngIf="!box.noBins"></ng-content>
+</div>

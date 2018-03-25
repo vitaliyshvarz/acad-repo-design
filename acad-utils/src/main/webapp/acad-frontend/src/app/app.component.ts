@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   routes = [
     { label: 'Home', path: '/home' },
-    { label: 'Schema view', path: '/schema/1' },
+    { label: 'Schema view', path: '/schema' },
   ];
 }

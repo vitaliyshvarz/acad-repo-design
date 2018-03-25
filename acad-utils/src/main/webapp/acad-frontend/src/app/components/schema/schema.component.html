@@ -1,6 +1,6 @@
-<h1>Schema view</h1>
+<h1 class="centered">Schema view</h1>
 
-<div *ngIf="currentSchema">
+<mat-card *ngIf="currentSchema">
   <h2>Received schema:</h2>
   <div>id: {{ currentSchema.id }}</div>
   <div>name: {{ currentSchema.name }}</div>
@@ -10,4 +10,4 @@
   <div>gridStepX: {{ currentSchema.gridStepX }}</div>
   <div>gridStepY: {{ currentSchema.gridStepY }}</div>
   <div>disableDeleting: {{ currentSchema.disableDeleting }}</div>
-</div>
+</mat-card>

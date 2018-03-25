@@ -4,29 +4,46 @@
     class="app__sidenav"
     mode="push"
     [(opened)]="opened"
-    (opened)="events.push('open!')"
-    (closed)="events.push('close!')"
   >
-    <a routerLink="/" mat-raised-button color="primary">Home</a>
-    <a routerLink="/schema/1" mat-raised-button color="primary">Schema 1</a>
+    <h1>MENU</h1>
+
+    <a *ngFor="let route of routes"
+       [routerLink]="route.path"
+       mat-raised-button
+       color="primary"
+    >
+      {{ route.label }}
+    </a>
   </mat-sidenav>
   
   <mat-sidenav-content class="app">
     <div class="app__header">
 
-      <mat-card>
-        <button class="app__sidenav-toggle" mat-icon-button (click)="sidenav.toggle()">
+      <mat-card class="app__header-body">
+        <button
+          (click)="sidenav.toggle()"
+          class="app__sidenav-toggle"
+          mat-icon-button
+        >
           <i class="material-icons">menu</i>
         </button>
-        <a routerLink="/" mat-raised-button color="primary">Home</a>
-        <a routerLink="/schema/1" mat-raised-button color="primary">Schema 1</a>
+
+        <div>
+          <a *ngFor="let route of routes"
+             [routerLink]="route.path"
+             routerLinkActive="app__header-body__link--active"
+             class="app__header-body__link"
+             mat-button
+             color="primary"
+          >
+            {{ route.label }}
+          </a>
+        </div>
       </mat-card>
     </div>
 
     <main class="app__outlet">
-      <mat-card>
-        <router-outlet></router-outlet>
-      </mat-card>
+      <router-outlet></router-outlet>
     </main>
   </mat-sidenav-content>
 </mat-sidenav-container>

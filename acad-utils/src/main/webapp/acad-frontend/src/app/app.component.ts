@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  events = [];
+  routes = [
+    { label: 'Home', path: '/home' },
+    { label: 'Schema view', path: '/schema/1' },
+  ];
 }

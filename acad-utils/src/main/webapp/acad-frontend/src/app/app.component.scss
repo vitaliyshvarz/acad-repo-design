@@ -1,18 +1,37 @@
 
 .app {
   min-height: 100vh;
+
   &__sidenav {
-    min-width: 250px;
-    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 350px;
+    padding: 40px 20px;
     text-align: center;
 
     &-toggle {
       margin-right: 20px;
     }
+
+    & a {
+      margin-bottom: 20px;
+    }
   }
 
   &__header {
     width: 100%;
+
+    &-body {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 60px;
+
+      &__link {
+        &--active {
+          border-bottom: 2px solid;
+        }
+      }
+    }
   }
 
   &__outlet {

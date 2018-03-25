@@ -31,7 +31,7 @@ export class SchemaViewComponent implements OnInit {
       .getSchemaBoxes(this.route.snapshot.data['schema'].id);
   }
 
-  showClicedObjectProps(e) {
+  showClickedObjectProps(e) {
     this.sidebarProps = [];
 
     if (e.target.dataset.item) {

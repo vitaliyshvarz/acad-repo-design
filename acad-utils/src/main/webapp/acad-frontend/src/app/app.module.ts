@@ -11,13 +11,12 @@ import { RoutingModule } from './shared/modules/routing/router.module';
 // Custom Components and Services imports
 import { AppComponent } from './app.component';
 import { COMPONENTS } from './components/index';
-import { SHARED_SERVICES, SHARED_COMPONENTS } from './shared';
+import { SHARED_SERVICES } from './shared';
 
 @NgModule({
   declarations: [
     AppComponent,
     ...COMPONENTS,
-    ...SHARED_COMPONENTS
   ],
   imports: [
     BrowserModule,

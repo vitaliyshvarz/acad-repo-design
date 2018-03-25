@@ -35,7 +35,7 @@ export class HttpService {
    *
    * @memberof HttpService
    */
-  post(endpoint: string, payload: any, options = {}): Observable<Object> {
+  post(endpoint: string, payload: any, options = {}): Observable<any> {
     return this.http.post(`${environment.apiUrl}/api/${endpoint}`, payload, options);
   }
 }

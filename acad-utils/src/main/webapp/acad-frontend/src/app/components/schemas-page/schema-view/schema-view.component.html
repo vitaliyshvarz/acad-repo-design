@@ -8,7 +8,7 @@
       [style.backgroundSize]="schema.gridStepX*10 + 'px ' + schema.gridStepY*10 + 'px'"
       [style.width.px]="schema.sizeX"
       [style.height.px]="schema.sizeY"
-      (click)="showClicedObjectProps($event)"
+      (click)="showClickedObjectProps($event)"
     >
       <app-schema-box-component
         *ngFor="let box of (boxes$ | async)"

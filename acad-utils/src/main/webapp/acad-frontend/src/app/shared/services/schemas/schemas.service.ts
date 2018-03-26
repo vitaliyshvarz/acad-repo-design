@@ -18,7 +18,7 @@ export class SchemasService {
     return this.httpService.get(`getSchema/${id}`);
   }
 
-  saveSchema(id: string, payload: Schema): Observable<any> { // unknown response type yet
+  saveSchema(id: number, payload: Schema): Observable<any> { // unknown response type yet
     return this.httpService.post(`saveSchema/${id}`, payload);
   }
 
@@ -30,7 +30,7 @@ export class SchemasService {
     return this.httpService.get(`getBoxes/${schemaId}`);
   }
 
-  saveSchemaBox(id: string, payload: Box): Observable<any> { // unknown response type yet
+  saveSchemaBox(id: number, payload: Box): Observable<any> { // unknown response type yet
     return this.httpService.post(`saveBox/${id}`, payload);
   }
 
@@ -38,7 +38,7 @@ export class SchemasService {
     return this.httpService.get(`getInsideBoxes/${schemaId}`);
   }
 
-  saveSchemaInsideBox(id: string, payload: InsideBox): Observable<any> { // unknown response type yet
+  saveSchemaInsideBox(id: number, payload: InsideBox): Observable<any> { // unknown response type yet
     return this.httpService.post(`saveInsideBox/${id}`, payload);
   }
 }

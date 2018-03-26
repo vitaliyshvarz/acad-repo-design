@@ -1,6 +1,10 @@
+
+<!-- Box will represent view only -->
+<!-- And parent wrapper will represent positioning  -->
 <div
   #boxRef
   class="box-body"
+  [attr.data-id]="box.id"
   [style.backgroundColor]="box.bodyColor"
   [style.border]="'2px solid' + box.borderColor || 'transparent'"
   [style.width.px]="box.sizeX"

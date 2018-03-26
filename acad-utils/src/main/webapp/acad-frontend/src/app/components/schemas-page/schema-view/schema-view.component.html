@@ -11,12 +11,15 @@
       (click)="showClickedObjectProps($event)"
     >
       <app-schema-box-component
-        *ngFor="let box of (boxes$ | async)"
+        *ngFor="let box of boxes"
         [box]="box"
+        [attr.data-id]="box.id"
+        [style.left.px]="box.posX"
+        [style.top.px]="box.posY"
+        class="interactable-schema-box"
       ></app-schema-box-component>
     </div>
     <!-- END: Grid view -->
-
   </div>
 
   <div class="schema__sidebar">
@@ -28,7 +31,7 @@
       Change grid color
     </button>
     
-    <div class="schema__sidebar-props" *ngIf="sidebarProps">
+    <div class="schema__sidebar-props" [hidden]="!sidebarProps">
       <div *ngFor="let prop of sidebarProps">{{ prop.key }}: {{ prop.value }}</div>
     </div>
   </div>

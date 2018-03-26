@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
+// lib for interacting with schema objects
+import * as interact from 'interactjs';
+
 import { Schema } from '../../../models/schema.model';
 import { Box } from './../../../models/box/box.model';
 

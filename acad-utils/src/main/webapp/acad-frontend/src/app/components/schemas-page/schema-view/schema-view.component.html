@@ -9,14 +9,13 @@
       [style.height.px]="schema.sizeY"
       (click)="showClickedObjectProps($event)"
     >
-      <app-schema-box-component
-        *ngFor="let box of boxes"
-        [box]="box"
-        [attr.data-id]="box.id"
-        [style.left.px]="box.posX"
-        [style.top.px]="box.posY"
-        class="interactable-schema-box"
-      ></app-schema-box-component>
+      <app-boxes-view
+        [boxes]="boxes"
+      ></app-boxes-view>
+      
+      <app-building-areas-view
+        [buildingAreas]="buildingAreas"
+      ></app-building-areas-view>
     </div>
     <!-- END: Grid view -->
   </mat-card>

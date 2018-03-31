@@ -1,6 +1,7 @@
 :host {
   display: block;
   position: absolute;
+  z-index: 100;
 
   & > div {
     border: 2px solid transparent;

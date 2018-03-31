@@ -13,7 +13,7 @@ export interface DragCallbackProps {
 
 export enum InteractType {
   box = 'box',
-  insideBox = 'insideBox'
+  buildingArea = 'buildingArea'
 }
 
 @Injectable()

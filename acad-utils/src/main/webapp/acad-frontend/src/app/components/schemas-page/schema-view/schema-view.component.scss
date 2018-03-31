@@ -25,17 +25,5 @@
     background-image: linear-gradient(to right, grey 1px, transparent 1px),
       linear-gradient(to bottom, grey 1px, transparent 1px);
   }
-
-  &__sidebar {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    
-    &-props {
-      padding: 14px;
-      height: calc(100vh - 180px);
-      overflow-y: auto;
-    }
-  }
 }
 

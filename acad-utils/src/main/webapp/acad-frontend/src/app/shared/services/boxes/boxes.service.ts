@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 // Models
 import { Box } from './../../../models/box/box.model';
@@ -9,6 +10,7 @@ import { HttpService } from './../http/http.service';
 
 @Injectable()
 export class BoxesService {
+  public boxes: BehaviorSubject<Box[]> = new BehaviorSubject([]);
 
   constructor(private readonly httpService: HttpService) { }
 

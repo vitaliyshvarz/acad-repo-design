@@ -4,10 +4,12 @@ import { Subscription } from 'rxjs/Subscription';
 
 // Models
 import { BuildingArea } from './../../../models/building-area/building-area.model';
+import { SidebarPropType } from '../../../models/right-sidebar/right-sidebar-props.model';
 
 // Services
 import { BuildingAreasService } from './../../../shared/services/building-areas/building-areas.service';
 import { DragHelperService, InteractType } from './../../../shared/services/drag-helper/drag-helper.service';
+import { RightSidebarService } from './../../../shared/services/right-sidebar/right-sidebar.service';
 
 /**
  * @description
@@ -18,6 +20,7 @@ import { DragHelperService, InteractType } from './../../../shared/services/drag
   template: `
   <app-building-area-component
     *ngFor="let area of buildingAreas"
+    (click)="showAreaOnSidebar(area)"
     [area]="area"
     [attr.data-id]="area.id"
     [style.left.px]="area.posX"
@@ -43,11 +46,19 @@ export class BuildingAreasViewComponent implements OnInit {
 
   constructor(
     private readonly buildingAreasService: BuildingAreasService,
-    private readonly dragHelper: DragHelperService
+    private readonly dragHelper: DragHelperService,
+    private readonly rhsService: RightSidebarService,
   ) { }
 
   ngOnInit() {
     this.createAreasInteraction();
+  }
+
+  showAreaOnSidebar(area: BuildingArea): void {
+    this.rhsService.nextProps({
+      type: SidebarPropType.buildingArea,
+      value: area
+    });
   }
 
   saveBuildingArea() {
@@ -60,7 +71,9 @@ export class BuildingAreasViewComponent implements OnInit {
       const subscription = this.buildingAreasService
         .saveBuildingArea(payload.id, payload)
         .subscribe((updatedArea: BuildingArea) => {
-          this.buildingAreas = this.buildingAreas.map((area) => area.id === updatedArea.id ? updatedArea : area);
+          this.buildingAreasService.buildingAreas.next(
+            this.buildingAreas.map((area) => area.id === updatedArea.id ? updatedArea : area)
+          );
           subscription.unsubscribe();
         });
     }
@@ -74,19 +87,24 @@ export class BuildingAreasViewComponent implements OnInit {
       .subscribe((params) => this.dragEndCallback(params)));
   }
 
-  private dragEndCallback(params) {
+  dragEndCallback(params) {
     if (params.id && params.type === InteractType.buildingArea) {
       const payload: BuildingArea = {
-        ...this.buildingAreas.find((area) => area.id === params.id),
+        ...this.buildingAreasService.buildingAreas.value.find((area) => area.id === params.id),
         posX: params.x,
         posY: params.y
       };
 
       const subsription = this.buildingAreasService.saveBuildingArea(params.id, payload)
-        .subscribe(() => {
-          this.buildingAreas = this.buildingAreas.map((box) => box.id === payload.id ? payload : box);
+        .subscribe((savedArea) => {
+          this.buildingAreasService.buildingAreas.next(
+            this.buildingAreas.map((box) => box.id === savedArea.id ? savedArea : box)
+          );
           // trigger event to show synced box on sidebar after dragend
-          // this.showClickedObjectProps({ target: {dataset: {id: payload.id} }});
+          this.rhsService.nextProps({
+            type: SidebarPropType.buildingArea,
+            value: savedArea
+          });
           subsription.unsubscribe();
         });
     }

@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -11,6 +12,7 @@ import { HttpService } from './../http/http.service';
 
 @Injectable()
 export class SchemasService {
+  public schema: BehaviorSubject<Schema>;
 
   constructor(private readonly httpService: HttpService) { }
 

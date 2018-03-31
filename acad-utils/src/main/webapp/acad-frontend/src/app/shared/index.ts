@@ -1,3 +1,4 @@
+import { RightSidebarService } from './services/right-sidebar/right-sidebar.service';
 import { BuildingAreasService } from './services/building-areas/building-areas.service';
 import { BoxesService } from './services/boxes/boxes.service';
 import { DragHelperService } from './services/drag-helper/drag-helper.service';
@@ -11,5 +12,6 @@ export const SHARED_SERVICES = [
   BoxesService,
   BuildingAreasService,
   SchemaResolver,
-  DragHelperService
+  DragHelperService,
+  RightSidebarService,
 ];

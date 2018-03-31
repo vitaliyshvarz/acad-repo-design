@@ -6,7 +6,7 @@
   class="box-body"
   [attr.data-id]="box.id"
   [style.backgroundColor]="box.bodyColor"
-  [style.border]="'2px solid' + box.borderColor || 'transparent'"
+  [style.borderColor]="box.borderColor || 'transparent'"
   [style.width.px]="box.sizeX"
   [style.height.px]="box.sizeY"
   [style.opacity]="box.solid ? '1' : '0.1'"

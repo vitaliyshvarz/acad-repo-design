@@ -3,32 +3,38 @@
     display: flex;
     justify-content: space-between;
     padding: 0;
+    height: calc(100vh - 60px);
+  }
+  
+  &__header {
+    padding: 4px;
+    margin-bottom: 10px;
   }
 
   &__view {
     display: flex;
     flex-direction: column;
     overflow: auto;
-    height: calc(100vh - 100px);
     width: 100%;
   }
 
   &__grid {
+    margin: 0 auto;
     position: relative;
     border: 1px solid;
     background-image: linear-gradient(to right, grey 1px, transparent 1px),
-      linear-gradient(to bottom, grey 1px, transparent 1px);  
-    &--dark {
-      background-color: #434343;
-    }
+      linear-gradient(to bottom, grey 1px, transparent 1px);
   }
 
   &__sidebar {
-    box-shadow: -1px 0 #9b9b9b;
-    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
     
     &-props {
       padding: 14px;
+      height: calc(100vh - 180px);
+      overflow-y: auto;
     }
   }
 }

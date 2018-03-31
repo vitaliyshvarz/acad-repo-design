@@ -77,7 +77,7 @@ export class DragHelperService {
     target.setAttribute('data-y', 0);
 
     if (!target.getAttribute('data-id')) {
-      throw new Error('No [attr.data-id] in provided on element');
+      throw new Error('No [attr.data-id] provided on drag element');
     }
 
     this.dragEnd$.next({
@@ -86,5 +86,9 @@ export class DragHelperService {
       x: x + dx,
       y: y + dy,
     });
+  }
+
+  onDragEnd(): BehaviorSubject<DragCallbackProps> {
+    return this.dragEnd$;
   }
 }

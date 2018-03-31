@@ -1,10 +1,9 @@
 
 <mat-card class="schema__wrapper">
-  <div class="schema__view">
+  <mat-card class="schema__view">
     <!-- START: Grid view -->
     <div
       class="schema__grid"
-      [class.schema__grid--dark]="themeDark"
       [style.backgroundSize]="schema.gridStepX*10 + 'px ' + schema.gridStepY*10 + 'px'"
       [style.width.px]="schema.sizeX"
       [style.height.px]="schema.sizeY"
@@ -20,19 +19,21 @@
       ></app-schema-box-component>
     </div>
     <!-- END: Grid view -->
-  </div>
+  </mat-card>
 
-  <div class="schema__sidebar">
+  <mat-card class="schema__sidebar">
+    <div class="schema__sidebar-props" [hidden]="!sidebarProps.length">
+      <mat-form-field *ngFor="let prop of sidebarProps" class="example-full-width">
+        <input matInput [placeholder]="prop.key" [(ngModel)]="prop.value">
+      </mat-form-field>
+    </div>
     <button
       mat-raised-button
       color="primary"
-      (click)="themeDark = !themeDark"
+      *ngIf="sidebarProps.length"
+      (click)="saveBox()"
     >
-      Change grid color
+      SAVE
     </button>
-    
-    <div class="schema__sidebar-props" [hidden]="!sidebarProps">
-      <div *ngFor="let prop of sidebarProps">{{ prop.key }}: {{ prop.value }}</div>
-    </div>
-  </div>
+  </mat-card>
 </mat-card>

@@ -34,11 +34,11 @@ export class SchemasService {
     return this.httpService.post(`saveBox/${id}`, payload);
   }
 
-  getSchemaInsideBoxes(schemaId: number): Observable<InsideBox[]> {
-    return this.httpService.get(`getInsideBoxes/${schemaId}`);
+  getSchemaBuildingAreas(schemaId: number): Observable<any> {
+    return this.httpService.get(`getBuildingAreas/${schemaId}`);
   }
 
-  saveSchemaInsideBox(id: number, payload: InsideBox): Observable<any> { // unknown response type yet
-    return this.httpService.post(`saveInsideBox/${id}`, payload);
+  saveSchemaBuildingArea(areaId: number, buildingArea): Observable<any> {
+    return this.httpService.post(`saveBuildingArea/${areaId}`, buildingArea);
   }
 }

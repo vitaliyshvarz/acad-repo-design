@@ -29,8 +29,8 @@ public class SchemaObjectDB<T extends SchemaObject> {
         return objects.stream().filter(e -> e.getSchemaId() == schemaId).collect(Collectors.toList());
     }
 
-    public synchronized void updateOrSaveEntity(T object) {
-        if (object.getId() == 0) {
+    public synchronized T updateOrSaveEntity(T object) {
+        if (object.getId() == null || object.getId() == 0) {
             object.setId(index++);
             objects.add(object);
         }
@@ -41,6 +41,7 @@ public class SchemaObjectDB<T extends SchemaObject> {
                     objects.remove(e);
                     objects.add(object);
                 });
+        return object;
     }
 
     /**

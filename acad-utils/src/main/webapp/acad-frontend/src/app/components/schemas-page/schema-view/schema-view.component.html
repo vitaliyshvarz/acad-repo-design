@@ -1,35 +1,24 @@
 
 <mat-card class="schema__wrapper">
-  <div class="schema__view">
+  <mat-card class="schema__view">
     <!-- START: Grid view -->
     <div
       class="schema__grid"
-      [class.schema__grid--dark]="themeDark"
-      [style.backgroundSize]="schema.gridStepX*10 + 'px ' + schema.gridStepY*10 + 'px'"
+      [style.backgroundSize]="schema.gridStepX + 'px ' + schema.gridStepY + 'px'"
       [style.width.px]="schema.sizeX"
       [style.height.px]="schema.sizeY"
-      (click)="showClicedObjectProps($event)"
+      (click)="showSchemaOnSidebar($event)"
     >
-      <app-schema-box-component
-        *ngFor="let box of (boxes$ | async)"
-        [box]="box"
-      ></app-schema-box-component>
+      <app-boxes-view
+        [boxes]="(boxes$ | async)"
+      ></app-boxes-view>
+      
+      <app-building-areas-view
+        [buildingAreas]="(buildingAreas$ | async)"
+      ></app-building-areas-view>
     </div>
     <!-- END: Grid view -->
-
-  </div>
-
-  <div class="schema__sidebar">
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="themeDark = !themeDark"
-    >
-      Change grid color
-    </button>
-    
-    <div class="schema__sidebar-props" *ngIf="sidebarProps">
-      <div *ngFor="let prop of sidebarProps">{{ prop.key }}: {{ prop.value }}</div>
-    </div>
-  </div>
+  </mat-card>
+  <app-schema-right-sidebar
+  ></app-schema-right-sidebar>
 </mat-card>

@@ -1,0 +1,21 @@
+
+<mat-card class="sidebar">
+  <div class="sidebar-props" *ngIf="form">
+    <form [formGroup]="form">
+      <mat-form-field *ngFor="let prop of sidebarProps">
+        <input
+          matInput
+          [placeholder]="prop"
+          [formControlName]="prop">
+      </mat-form-field>
+    </form>
+  </div>
+  <button
+    mat-raised-button
+    color="primary"
+    *ngIf="sidebarProps.length"
+    (click)="saveSidebarProps()"
+  >
+    SAVE
+  </button>
+</mat-card>

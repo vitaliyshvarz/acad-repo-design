@@ -1,0 +1,16 @@
+
+:host {
+  height: calc(100vh - 110px);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  
+  &-props {
+    padding: 14px;
+    height: calc(100vh - 180px);
+    overflow-y: auto;
+  }
+}

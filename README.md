@@ -2,7 +2,7 @@
 ### Main goal: 
 `Implement functionality analogue to AutoCAD like tools`.
 
-### Start project: 
+### Start project (v#2): 
 To start a project initialize import of project or open pom.xml as project.
 Used IDEA: IntelliJ 2017 Ultimate version (with web-app support).
 Requirement: JAVA 8, embedded tomcat is used from the box with spring boot configured application.

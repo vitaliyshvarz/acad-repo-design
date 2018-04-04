@@ -32,14 +32,14 @@ export class BuildingAreasService {
    * @description
    * Perfors a POST request that updates building area
    *
-   * @param areaId id of area that will be saved
+   * @param schemaId id of related Schema to building area that will be saved
    * @param buildingArea building area that will be saved
    *
    * @returns Observable with updated building area data
    *
    * @memberof BuildingAreasService
    */
-  saveBuildingArea(areaId: number, buildingArea: BuildingArea): Observable<BuildingArea> {
-    return this.httpService.post(`saveBuildingArea/${areaId}`, buildingArea);
+  saveBuildingArea(schemaId: number, buildingArea: BuildingArea): Observable<BuildingArea> {
+    return this.httpService.post(`saveBuildingArea/${schemaId}`, buildingArea);
   }
 }

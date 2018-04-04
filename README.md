@@ -45,10 +45,12 @@ Box, ConnectedLine, StepPoint, Network, ... etc. and {id} - is id of schema, to 
 be used in both cases, whether we store new or update existing entity.
 
 ======
-### TODO steps.
-|  STATUS  |      TODO     |
+## TODO steps.
+### Frontend part is located in `\acad-repo-design\acad-utils\src\main\webapp\acad-frontend` folder.
+
+|  STATUS  |      TASK     |
 | -------- |:-------------:|
-|  ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `DONE`   | Frontend part is located in \acad-repo-design\acad-utils\src\main\webapp\acad-frontend folder. <br>Currently available only 1-st schema (with id = 1). <br> When we enter editor of such schema, we need to get {@see `Schema`} object and draw grid. <br>Left side panel list top level objects and include buttons to add new objects. <br>Right side panel includes property of selected object |
+|  ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `DONE`   | Currently available only 1-st schema (with id = 1). <br> When we enter editor of such schema, we need to get {@see `Schema`} object and draw grid. <br>Left side panel list top level objects and include buttons to add new objects. <br>Right side panel includes property of selected object |
 |  ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `DONE`  | Add support of Schema properties representation at right side panel, makes them editable and with possibility to store updated properties, (with possibility to apply same logic for any other object). |
 |  ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `DONE`  | Add support and drawing of objects: Building Areas and Boxes (check entities package and JavaDoc to classes for more information). <br> Be sure that right side panel properties are changeable, and changes stored if save button is pressed, or reverted if object is deselected. All changes that influence on position \ size \ color should be visible during changes. |
 | ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `TODO` | Add support and drawing of objects: Networks, StepPoints, Connected Lines (check entities package and JavaDoc to classes for more information). Same manipulations with properties support as in 3 point. |

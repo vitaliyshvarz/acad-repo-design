@@ -58,7 +58,7 @@ public class MainCadController {
     }
 
     @RequestMapping(value = "/api/saveSchema/{id}", method = RequestMethod.POST)
-    public Schema saveBox(@PathVariable Integer id, @RequestBody Schema schema) throws Exception {
+    public Schema saveSchema(@PathVariable Integer id, @RequestBody Schema schema) throws Exception {
         if (id == 1) {
             schema1 = schema;
             return schema1;
@@ -76,9 +76,9 @@ public class MainCadController {
         return boxesDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/api/saveBox/{id}", method = RequestMethod.POST)
-    public Box saveBox(@PathVariable Integer id, @RequestBody Box box) {
-        box.setSchemaId(id);
+    @RequestMapping(value = "/api/saveBox/{schemaId}", method = RequestMethod.POST)
+    public Box saveBox(@PathVariable Integer schemaId, @RequestBody Box box) {
+        box.setSchemaId(schemaId);
         return boxesDB.updateOrSaveEntity(box);
     }
 
@@ -92,9 +92,9 @@ public class MainCadController {
         return insideBoxesDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/api/saveInsideBox/{id}", method = RequestMethod.POST)
-    public InsideBox saveInsideBox(@PathVariable Integer id, @RequestBody InsideBox box) {
-        box.setSchemaId(id);
+    @RequestMapping(value = "/api/saveInsideBox/{schemaId}", method = RequestMethod.POST)
+    public InsideBox saveInsideBox(@PathVariable Integer schemaId, @RequestBody InsideBox box) {
+        box.setSchemaId(schemaId);
         return insideBoxesDB.updateOrSaveEntity(box);
     }
 
@@ -108,9 +108,9 @@ public class MainCadController {
         return buildingAreasDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/api/saveBuildingArea/{id}", method = RequestMethod.POST)
-    public BuildingArea saveBuildingArea(@PathVariable Integer id, @RequestBody BuildingArea area) {
-        area.setSchemaId(id);
+    @RequestMapping(value = "/api/saveBuildingArea/{schemaId}", method = RequestMethod.POST)
+    public BuildingArea saveBuildingArea(@PathVariable Integer schemaId, @RequestBody BuildingArea area) {
+        area.setSchemaId(schemaId);
         return buildingAreasDB.updateOrSaveEntity(area);
     }
 
@@ -124,9 +124,9 @@ public class MainCadController {
         return networksDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/api/saveNetwork/{id}", method = RequestMethod.POST)
-    public Network saveNetwork(@PathVariable Integer id, @RequestBody Network net) {
-        net.setSchemaId(id);
+    @RequestMapping(value = "/api/saveNetwork/{schemaId}", method = RequestMethod.POST)
+    public Network saveNetwork(@PathVariable Integer schemaId, @RequestBody Network net) {
+        net.setSchemaId(schemaId);
         return networksDB.updateOrSaveEntity(net);
     }
 
@@ -140,9 +140,9 @@ public class MainCadController {
         return connectedLinesDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/api/saveConnectedLine/{id}", method = RequestMethod.POST)
-    public ConnectedLine saveConnectedLine(@PathVariable Integer id, @RequestBody ConnectedLine line) {
-        line.setSchemaId(id);
+    @RequestMapping(value = "/api/saveConnectedLine/{schemaId}", method = RequestMethod.POST)
+    public ConnectedLine saveConnectedLine(@PathVariable Integer schemaId, @RequestBody ConnectedLine line) {
+        line.setSchemaId(schemaId);
         return connectedLinesDB.updateOrSaveEntity(line);
     }
 
@@ -156,9 +156,9 @@ public class MainCadController {
         return stepPointsDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/api/saveStepPoint/{id}", method = RequestMethod.POST)
-    public StepPoint saveStepPoint(@PathVariable Integer id, @RequestBody StepPoint point) {
-        point.setSchemaId(id);
+    @RequestMapping(value = "/api/saveStepPoint/{schemaId}", method = RequestMethod.POST)
+    public StepPoint saveStepPoint(@PathVariable Integer schemaId, @RequestBody StepPoint point) {
+        point.setSchemaId(schemaId);
         return stepPointsDB.updateOrSaveEntity(point);
     }
 
@@ -172,9 +172,9 @@ public class MainCadController {
         return walkersDB.getAllEntitiesBySchemaId(id);
     }
 
-    @RequestMapping(value = "/api/saveWalker/{id}", method = RequestMethod.POST)
-    public Walker saveWalker(@PathVariable Integer id, @RequestBody Walker walker) {
-        walker.setSchemaId(id);
+    @RequestMapping(value = "/api/saveWalker/{schemaId}", method = RequestMethod.POST)
+    public Walker saveWalker(@PathVariable Integer schemaId, @RequestBody Walker walker) {
+        walker.setSchemaId(schemaId);
         return walkersDB.updateOrSaveEntity(walker);
     }
 }

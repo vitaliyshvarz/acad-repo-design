@@ -22,11 +22,11 @@ import { SidebarPropType } from '../../../models/right-sidebar/right-sidebar-pro
   styleUrls: ['./schema-view.component.scss'],
 })
 export class SchemaViewComponent implements OnInit, OnDestroy {
-  public schema: Schema;
-  public boxes$: Observable<Box[]>;
-  public buildingAreas$: Observable<BuildingArea[]>;
+  schema: Schema;
+  boxes$: Observable<Box[]>;
+  buildingAreas$: Observable<BuildingArea[]>;
 
-  public sidebarProps: { key: string, value: any }[] = [];
+  sidebarProps: { key: string, value: any }[] = [];
 
   private subscriptions: Subscription[] = [];
 
@@ -38,28 +38,41 @@ export class SchemaViewComponent implements OnInit, OnDestroy {
     private readonly rhsService: RightSidebarService,
   ) { }
 
-  public ngOnInit() {
+  ngOnInit() {
+    // set current schema data to service and subscribe for changes to stay synced with service
     this.schemasService.schema = new BehaviorSubject(this.route.snapshot.data['schema']);
     this.subscriptions.push(this.schemasService.schema.subscribe((storedSchema) => this.schema = storedSchema));
 
+    // fetch boxes and building areas
     Promise.all([
       this.schemasService.getSchemaBoxes(this.route.snapshot.data['schema'].id).toPromise(),
       this.schemasService.getSchemaBuildingAreas(this.route.snapshot.data['schema'].id).toPromise()
     ])
     .then(([boxes, areas]) => {
+      // create subscriptions for boxes and building areas to stay synced with services
       this.boxes$ = this.boxesService.boxes;
       this.buildingAreas$ = this.buildingAreasService.buildingAreas;
 
+      // set initial boxes and building areas props to services
       this.boxesService.boxes.next(boxes);
       this.buildingAreasService.buildingAreas.next(areas);
     });
   }
 
-  public ngOnDestroy() {
+  ngOnDestroy() {
+    // destroy all subscriptions
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  public showSchemaOnSidebar(e): void {
+  /**
+   * @description
+   * Drop props to create form and display schema on right sidebar
+   *
+   * @param e click event
+   *
+   * @memberof SchemaViewComponent
+   */
+  showSchemaOnSidebar(e: any): void {
     if (!e.target.dataset.id && this.rhsService.getProps().value.type !== SidebarPropType.schema) {
       this.rhsService.nextProps({
         type: SidebarPropType.schema,

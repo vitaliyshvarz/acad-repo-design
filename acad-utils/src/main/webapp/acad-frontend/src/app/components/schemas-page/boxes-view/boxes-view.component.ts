@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 // Models
 import { Box } from './../../../models/box/box.model';
 import { SidebarPropType } from './../../../models/right-sidebar/right-sidebar-props.model';
+import { DragCallbackProps } from './../../../shared/services/drag-helper/drag-helper.service';
 
 // Services
 import { BoxesService } from './../../../shared/services/boxes/boxes.service';
@@ -36,8 +37,6 @@ import { RightSidebarService } from './../../../shared/services/right-sidebar/ri
 export class BoxesViewComponent implements OnInit {
   @Input() boxes: Box[] = [];
 
-  sidebarProps: { key: string, value: any }[] = [];
-
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -57,33 +56,15 @@ export class BoxesViewComponent implements OnInit {
     });
   }
 
-  saveBox() {
-    if (this.sidebarProps.length) {
-      const payload: Box = this.sidebarProps.reduce(
-        (obj, prop) => ({ ...obj, [prop.key]: prop.value }),
-        { } as Box
-      );
-
-      const subscription = this.boxesService
-        .saveBox(payload.id, payload)
-        .subscribe((updatedBox: Box) => {
-          this.boxesService.boxes.next(
-            this.boxes.map((box) => box.id === updatedBox.id ? updatedBox : box)
-          );
-          subscription.unsubscribe();
-        });
-    }
-  }
-
-  createBoxInteraction() {
+  createBoxInteraction(): void {
     this.dragHelper.createInteractOptions('.interactable-schema-box', InteractType.box);
 
     this.subscriptions.push(this.dragHelper
       .onDragEnd()
-      .subscribe((params) => this.dragEndCallback(params)));
+      .subscribe((params: DragCallbackProps) => this.dragEndCallback(params)));
   }
 
-  dragEndCallback(params) {
+  dragEndCallback(params: DragCallbackProps): void {
     if (params.id && params.type === InteractType.box) {
       const payload = {
         ...this.boxesService.boxes.value.find((box) => box.id === params.id),

@@ -10,14 +10,35 @@ import { HttpService } from './../http/http.service';
 
 @Injectable()
 export class BoxesService {
-  public boxes: BehaviorSubject<Box[]> = new BehaviorSubject([]);
+  boxes: BehaviorSubject<Box[]> = new BehaviorSubject([]);
 
   constructor(private readonly httpService: HttpService) { }
 
+  /**
+   * @description
+   * Performs a GET request for box item related to specific schema
+   *
+   * @param schemaId id of related schema
+   * @param id id of box that will be returned
+   * @returns Observable with box item
+   *
+   * @memberof BoxesService
+   */
   getBox(schemaId: number, id: number): Observable<Box> {
     return this.httpService.get(`getBox/${schemaId}/${id}`);
   }
 
+  /**
+   * @description
+   * Perfors a POST request that updates box item
+   *
+   * @param id id of box that will be saved
+   * @param payload box that will be saved
+   *
+   * @returns Observable with updated box data
+   *
+   * @memberof BoxesService
+   */
   saveBox(id: number, payload: Box): Observable<Box> {
     return this.httpService.post(`saveBox/${id}`, payload);
   }

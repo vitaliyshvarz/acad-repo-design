@@ -23,7 +23,10 @@ export class DragHelperService {
   /**
    * @description
    * Created interact instance for specific type of objects
+   *
    * @param selector
+   *
+   * @memberof DragHelperService
    */
   createInteractOptions(selector: string, type: InteractType): void {
     interact(selector)
@@ -44,7 +47,15 @@ export class DragHelperService {
       });
   }
 
-  dragMoveListener(event): void {
+  /**
+   * @description
+   * On move listener that updates dragged object props to have view synced
+   *
+   * @param event drag move event
+   *
+   * @memberof DragHelperService
+   */
+  dragMoveListener(event: any): void {
     const target = event.target;
     // keep the dragged position in the data-x/data-y attributes
     const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
@@ -59,6 +70,16 @@ export class DragHelperService {
     target.setAttribute('data-y', y);
   }
 
+  /**
+   * @description
+   * Drag end listener that updates dragged DOM element
+   * props in dataset and modify stylings to have view synced with data
+   *
+   * @param event drag event
+   * @param type type of dragged object
+   *
+   * @memberof DragHelperService
+   */
   dragEndListener(event, type): void {
     const target = event.target;
     const x = parseInt(target.style.left.slice(0, -2), 10) || 0;
@@ -80,6 +101,7 @@ export class DragHelperService {
       throw new Error('No [attr.data-id] provided on drag element');
     }
 
+    // pass props of dragged item
     this.dragEnd$.next({
       type,
       id: parseInt(target.getAttribute('data-id'), 10),
@@ -88,6 +110,14 @@ export class DragHelperService {
     });
   }
 
+  /**
+   * @description
+   * Drag end event callback that stores coordinates, id and type of dragged object
+   *
+   * @returns dragged item props
+   *
+   * @memberof DragHelperService
+   */
   onDragEnd(): BehaviorSubject<DragCallbackProps> {
     return this.dragEnd$;
   }

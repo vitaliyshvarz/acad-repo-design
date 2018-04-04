@@ -12,13 +12,16 @@
       <app-boxes-view
         [boxes]="(boxes$ | async)"
       ></app-boxes-view>
-      
+
       <app-building-areas-view
         [buildingAreas]="(buildingAreas$ | async)"
       ></app-building-areas-view>
     </div>
     <!-- END: Grid view -->
   </mat-card>
+
+  <!-- START: Schema right sidebar -->
   <app-schema-right-sidebar
   ></app-schema-right-sidebar>
+  <!-- END: Schema right sidebar -->
 </mat-card>

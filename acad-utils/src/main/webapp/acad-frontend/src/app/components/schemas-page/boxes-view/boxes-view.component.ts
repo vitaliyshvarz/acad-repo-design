@@ -72,8 +72,6 @@ export class BoxesViewComponent implements OnInit {
         posY: params.y
       };
 
-      console.log('BOX DRAG END: ', payload);
-
       const subsription = this.boxesService.saveBox(params.id, payload)
         .subscribe((savedBox) => {
           this.boxesService.boxes.next(

@@ -11,6 +11,7 @@ import { DragCallbackProps } from './../../../shared/services/drag-helper/drag-h
 import { BuildingAreasService } from './../../../shared/services/building-areas/building-areas.service';
 import { DragHelperService, InteractType } from './../../../shared/services/drag-helper/drag-helper.service';
 import { RightSidebarService } from './../../../shared/services/right-sidebar/right-sidebar.service';
+import { SchemasService } from './../../../shared/services/schemas/schemas.service';
 
 /**
  * @description
@@ -47,6 +48,7 @@ export class BuildingAreasViewComponent implements OnInit {
     private readonly buildingAreasService: BuildingAreasService,
     private readonly dragHelper: DragHelperService,
     private readonly rhsService: RightSidebarService,
+    private readonly schemasService: SchemasService,
   ) { }
 
   ngOnInit() {
@@ -92,7 +94,7 @@ export class BuildingAreasViewComponent implements OnInit {
 
       // perform request to save updated building area
       const subsription = this.buildingAreasService
-        .saveBuildingArea(params.id, payload)
+        .saveBuildingArea(this.schemasService.schema.value.id, payload)
         .subscribe((savedArea: BuildingArea) => {
           // sync service stored objects with API response
           this.buildingAreasService.buildingAreas.next(

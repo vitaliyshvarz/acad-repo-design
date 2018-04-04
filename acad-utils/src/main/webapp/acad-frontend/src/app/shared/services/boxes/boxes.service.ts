@@ -32,14 +32,14 @@ export class BoxesService {
    * @description
    * Perfors a POST request that updates box item
    *
-   * @param id id of box that will be saved
+   * @param schemaId id of Schema related to box that will be saved
    * @param payload box that will be saved
    *
    * @returns Observable with updated box data
    *
    * @memberof BoxesService
    */
-  saveBox(id: number, payload: Box): Observable<Box> {
-    return this.httpService.post(`saveBox/${id}`, payload);
+  saveBox(schemaId: number, payload: Box): Observable<Box> {
+    return this.httpService.post(`saveBox/${schemaId}`, payload);
   }
 }

@@ -11,6 +11,7 @@ import { DragCallbackProps } from './../../../shared/services/drag-helper/drag-h
 import { BoxesService } from './../../../shared/services/boxes/boxes.service';
 import { DragHelperService, InteractType } from './../../../shared/services/drag-helper/drag-helper.service';
 import { RightSidebarService } from './../../../shared/services/right-sidebar/right-sidebar.service';
+import { SchemasService } from './../../../shared/services/schemas/schemas.service';
 
 @Component({
   selector: 'app-boxes-view',
@@ -42,7 +43,8 @@ export class BoxesViewComponent implements OnInit {
   constructor(
     private readonly boxesService: BoxesService,
     private readonly dragHelper: DragHelperService,
-    private rhsService: RightSidebarService,
+    private readonly rhsService: RightSidebarService,
+    private readonly schemasService: SchemasService,
   ) { }
 
   ngOnInit() {
@@ -72,7 +74,7 @@ export class BoxesViewComponent implements OnInit {
         posY: params.y
       };
 
-      const subsription = this.boxesService.saveBox(params.id, payload)
+      const subsription = this.boxesService.saveBox(this.schemasService.schema.value.id, payload)
         .subscribe((savedBox) => {
           this.boxesService.boxes.next(
             this.boxes.map((box) => box.id === savedBox.id ? savedBox : box)

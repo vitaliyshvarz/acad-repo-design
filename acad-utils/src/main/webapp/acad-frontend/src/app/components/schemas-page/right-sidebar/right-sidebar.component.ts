@@ -161,7 +161,7 @@ export class SchemaRightSidebarComponent implements OnInit, OnDestroy {
 
   private saveBox() {
     const boxSubscription = this.boxesService
-      .saveBox(this.currentValue.id, {...this.currentValue, ...this.form.value } as Box)
+      .saveBox(this.schemasService.schema.value.id, {...this.currentValue, ...this.form.value } as Box)
       .subscribe((savedBox) => {
         // merge existing boxes in service with updated boxes from response
         this.boxesService.boxes.next(this.boxesService.boxes.value.map(
@@ -176,7 +176,7 @@ export class SchemaRightSidebarComponent implements OnInit, OnDestroy {
 
   private saveBuildingArea() {
     const buildingAreaSubscription = this.buildingAreasService
-      .saveBuildingArea(this.currentValue.id, {...this.currentValue, ...this.form.value } as BuildingArea)
+      .saveBuildingArea(this.schemasService.schema.value.id, {...this.currentValue, ...this.form.value } as BuildingArea)
       .subscribe((savedArea) => {
         // merge existing building areas in service with updated building area from response
         this.buildingAreasService.buildingAreas.next(this.buildingAreasService.buildingAreas.value.map(

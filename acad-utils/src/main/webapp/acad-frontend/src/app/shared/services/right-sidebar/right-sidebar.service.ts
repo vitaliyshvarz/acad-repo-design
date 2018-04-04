@@ -9,12 +9,26 @@ import { SidebarProps, SidebarPropType } from './../../../models/right-sidebar/r
 
 @Injectable()
 export class RightSidebarService {
-  props: BehaviorSubject<SidebarProps> = new BehaviorSubject({ type: SidebarPropType.none, value: {} });
+  props: BehaviorSubject<SidebarProps> = new BehaviorSubject({ type: SidebarPropType.none, value: null });
 
+  /**
+   * @description
+   * Pass next props for right sidebar for handling sidebar form
+   *
+   * @param props type of model and model item that will be parsed by right sidebar
+   *
+   * @memberof RightSidebarService
+   */
   nextProps(props: SidebarProps): void {
     this.props.next(props);
   }
 
+  /**
+   * @description
+   * Returns subject with currenty active props that displayed on right sidebar
+   *
+   * @memberof RightSidebarService
+   */
   getProps(): BehaviorSubject<SidebarProps> {
     return this.props;
   }

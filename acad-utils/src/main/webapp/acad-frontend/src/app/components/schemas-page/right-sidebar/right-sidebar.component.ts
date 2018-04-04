@@ -7,7 +7,7 @@ import { Schema } from './../../../models/schema.model';
 import { Box } from './../../../models/box/box.model';
 import { BoxBase } from './../../../models/box/box-base.model';
 import { BuildingArea } from './../../../models/building-area/building-area.model';
-import { SidebarPropType } from './../../../models/right-sidebar/right-sidebar-props.model';
+import { SidebarPropType, SidebarProps } from './../../../models/right-sidebar/right-sidebar-props.model';
 
 // Services
 import { BuildingAreasService } from './../../../shared/services/building-areas/building-areas.service';
@@ -16,7 +16,8 @@ import { SchemasService } from './../../../shared/services/schemas/schemas.servi
 import { RightSidebarService } from './../../../shared/services/right-sidebar/right-sidebar.service';
 
 /**
- * all inputs will be as a simple string inputs
+ * All inputs from sidebar will be represented as a simple string inputs
+ * to keep simple scaling of sidebar available objects
  */
 @Component({
   selector: 'app-schema-right-sidebar',
@@ -25,9 +26,13 @@ import { RightSidebarService } from './../../../shared/services/right-sidebar/ri
 })
 export class SchemaRightSidebarComponent implements OnInit, OnDestroy {
   form: FormGroup;
-  sidebarProps: string[] = [];
-  sidebarPropsType: SidebarPropType;
 
+  // current props names to iterate on template
+  // important to keep them synced with form value keys
+  sidebarProps: string[] = [];
+  // type of object that represented on sidebar form
+  sidebarPropsType: SidebarPropType;
+  // current value of object which reporesented on sidebar form
   currentValue: Schema | Box | BuildingArea;
 
   private serviceSubscription: Subscription;
@@ -40,33 +45,47 @@ export class SchemaRightSidebarComponent implements OnInit, OnDestroy {
     private readonly buildingAreasService: BuildingAreasService,
   ) { }
 
-  public ngOnInit() {
+  ngOnInit() {
+    // subscribe for props change to stay up to date with clicked object from schema view
     this.serviceSubscription = this.sidebarService.getProps()
-      .subscribe((props) => {
-        this.sidebarPropsType = props.type;
+      .subscribe((props: SidebarProps) => {
+        if (props.value) {
+          // create form based on clicked object
+          switch (props.type) {
+            case SidebarPropType.schema:
+              this.createSchemaForm(props.value as Schema);
+              break;
+            case SidebarPropType.box:
+              this.createBoxForm(props.value as Box);
+              break;
+            case SidebarPropType.buildingArea:
+              this.createBuildingAreaForm(props.value as BuildingArea);
+              break;
+            default:
+              // reset form
+              this.form = this.fb.group({});
+              break;
+          }
 
-        switch (props.type) {
-          case SidebarPropType.schema:
-            this.createSchemaForm(props.value);
-            break;
-          case SidebarPropType.box:
-            this.createBoxForm(props.value);
-            break;
-          case SidebarPropType.buildingArea:
-            this.createBuildingAreaForm(props.value);
-            break;
-          default:
-            this.form = this.fb.group({});
-            break;
+          this.currentValue = props.value;
+          this.sidebarProps = Object.keys(this.form.value);
+          this.sidebarPropsType = props.type;
         }
       });
   }
 
-  public ngOnDestroy() {
+  ngOnDestroy() {
+    // destroy subscription
     this.serviceSubscription.unsubscribe();
   }
 
-  public saveSidebarProps() {
+  /**
+   * @description
+   * Based on current clicked object type performing API request to save object of type
+   *
+   * @memberof SchemaRightSidebarComponent
+   */
+  saveSidebarProps() {
     if (this.form.valid) {
       switch (this.sidebarPropsType) {
         case SidebarPropType.schema:
@@ -95,14 +114,13 @@ export class SchemaRightSidebarComponent implements OnInit, OnDestroy {
       gridStepY: [ schema.gridStepY, Validators.required ],
       disableDeleting: [ schema.disableDeleting ],
     });
-
-    this.currentValue = schema;
-    this.assignSidebarProps();
   }
 
   private createBoxForm(box: Box): void {
     this.form = this.fb.group({
       text: [ box.text, Validators.required ],
+      posX: [ box.posX, Validators.required ],
+      posY: [ box.posY, Validators.required ],
       sizeX: [ box.sizeX, Validators.required ],
       sizeY: [ box.sizeY, Validators.required ],
       sizeZ: [ box.sizeZ, Validators.required ],
@@ -112,9 +130,6 @@ export class SchemaRightSidebarComponent implements OnInit, OnDestroy {
       keepArea: [ box.keepArea, Validators.required ],
       solid: [ box.solid, Validators.required ]
     });
-
-    this.currentValue = box;
-    this.assignSidebarProps();
   }
 
   private createBuildingAreaForm(area: BuildingArea): void {
@@ -122,6 +137,8 @@ export class SchemaRightSidebarComponent implements OnInit, OnDestroy {
       name: [ area.name, Validators.required ],
       description: [ area.description, Validators.required ],
       mark: [ area.mark ],
+      posX: [ area.posX, Validators.required ],
+      posY: [ area.posY, Validators.required ],
       sizeX: [ area.sizeX, Validators.required ],
       sizeY: [ area.sizeY, Validators.required ],
       sizeZ: [ area.sizeZ, Validators.required ],
@@ -129,47 +146,46 @@ export class SchemaRightSidebarComponent implements OnInit, OnDestroy {
       borderColor: [ area.borderColor, Validators.required ],
       solid: [ area.solid, Validators.required ]
     });
-
-    this.currentValue = area;
-    this.assignSidebarProps();
   }
 
   private saveSchema() {
-    const schemaSub = this.schemasService
+    const schemaSubscription = this.schemasService
       .saveSchema(this.currentValue.id, {...this.currentValue, ...this.form.value } as Schema)
       .subscribe((savedSchema) => {
+        // update schema in service
         this.schemasService.schema.next(savedSchema);
-        schemaSub.unsubscribe();
+
+        schemaSubscription.unsubscribe();
       });
   }
 
   private saveBox() {
-    const boxSub = this.boxesService
+    const boxSubscription = this.boxesService
       .saveBox(this.currentValue.id, {...this.currentValue, ...this.form.value } as Box)
       .subscribe((savedBox) => {
+        // merge existing boxes in service with updated boxes from response
         this.boxesService.boxes.next(this.boxesService.boxes.value.map(
           (box) => box.id === savedBox.id
             ? ({ ...box, ...savedBox })
             : box
           ));
-        boxSub.unsubscribe();
+
+        boxSubscription.unsubscribe();
       });
   }
 
   private saveBuildingArea() {
-    const areaSub = this.buildingAreasService
+    const buildingAreaSubscription = this.buildingAreasService
       .saveBuildingArea(this.currentValue.id, {...this.currentValue, ...this.form.value } as BuildingArea)
       .subscribe((savedArea) => {
+        // merge existing building areas in service with updated building area from response
         this.buildingAreasService.buildingAreas.next(this.buildingAreasService.buildingAreas.value.map(
           (area) => area.id === savedArea.id
             ? ({ ...area, ...savedArea })
             : area
           ));
-        areaSub.unsubscribe();
-      });
-  }
 
-  private assignSidebarProps() {
-    this.sidebarProps = Object.keys(this.form.value);
+        buildingAreaSubscription.unsubscribe();
+      });
   }
 }

@@ -1,3 +1,6 @@
+import { BuildingArea } from './../building-area/building-area.model';
+import { Box } from './../box/box.model';
+import { Schema } from './../schema.model';
 
 export enum SidebarPropType {
   schema,
@@ -8,5 +11,5 @@ export enum SidebarPropType {
 
 export interface SidebarProps {
   type: SidebarPropType;
-  value: any;
+  value: Schema | Box | BuildingArea;
 }

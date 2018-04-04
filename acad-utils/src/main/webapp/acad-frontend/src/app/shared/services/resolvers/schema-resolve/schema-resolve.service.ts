@@ -13,6 +13,15 @@ export class SchemaResolver implements Resolve<Schema> {
     private readonly schemasService: SchemasService
   ) { }
 
+  /**
+   * @description
+   * Resolves schema item before route is loaded
+   *
+   * @param route resolved route
+   * @returns Observable with schema item data
+   *
+   * @memberof SchemaResolver
+   */
   resolve(route: ActivatedRouteSnapshot): Observable<Schema> {
     return this.schemasService.getSchema(route.params.id);
   }

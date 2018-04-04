@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 // Models
 import { BuildingArea } from './../../../models/building-area/building-area.model';
 import { SidebarPropType } from '../../../models/right-sidebar/right-sidebar-props.model';
+import { DragCallbackProps } from './../../../shared/services/drag-helper/drag-helper.service';
 
 // Services
 import { BuildingAreasService } from './../../../shared/services/building-areas/building-areas.service';
@@ -40,8 +41,6 @@ import { RightSidebarService } from './../../../shared/services/right-sidebar/ri
 export class BuildingAreasViewComponent implements OnInit {
   @Input() buildingAreas: BuildingArea[] = [];
 
-  sidebarProps: { key: string, value: any }[] = [];
-
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -51,9 +50,21 @@ export class BuildingAreasViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.createAreasInteraction();
+    this.dragHelper.createInteractOptions('.interactable-schema-area', InteractType.buildingArea);
+
+    this.subscriptions.push(this.dragHelper
+      .onDragEnd()
+      .subscribe((params: DragCallbackProps) => this.dragEndCallback(params)));
   }
 
+  /**
+   * @description
+   * Drop next props to sidebar to create form based on object type and value
+   *
+   * @param area area that will available to edit on sidebar form
+   *
+   * @memberof BuildingAreasViewComponent
+   */
   showAreaOnSidebar(area: BuildingArea): void {
     this.rhsService.nextProps({
       type: SidebarPropType.buildingArea,
@@ -61,50 +72,39 @@ export class BuildingAreasViewComponent implements OnInit {
     });
   }
 
-  saveBuildingArea() {
-    if (this.sidebarProps.length) {
-      const payload: BuildingArea = this.sidebarProps.reduce(
-        (obj, prop) => ({ ...obj, [prop.key]: prop.value }),
-        { } as BuildingArea
-      );
-
-      const subscription = this.buildingAreasService
-        .saveBuildingArea(payload.id, payload)
-        .subscribe((updatedArea: BuildingArea) => {
-          this.buildingAreasService.buildingAreas.next(
-            this.buildingAreas.map((area) => area.id === updatedArea.id ? updatedArea : area)
-          );
-          subscription.unsubscribe();
-        });
-    }
-  }
-
-  createAreasInteraction() {
-    this.dragHelper.createInteractOptions('.interactable-schema-area', InteractType.buildingArea);
-
-    this.subscriptions.push(this.dragHelper
-      .onDragEnd()
-      .subscribe((params) => this.dragEndCallback(params)));
-  }
-
-  dragEndCallback(params) {
+  /**
+   * @description
+   * Updates positions X and Y on server as during drag-n-drop
+   * we can update only positioning props
+   *
+   * @param params type, coordinates and id of object that will be saved
+   *
+   * @memberof BuildingAreasViewComponent
+   */
+  dragEndCallback(params: DragCallbackProps): void {
     if (params.id && params.type === InteractType.buildingArea) {
+      // find building area of that id in storage and assign him new position
       const payload: BuildingArea = {
         ...this.buildingAreasService.buildingAreas.value.find((area) => area.id === params.id),
         posX: params.x,
         posY: params.y
       };
 
-      const subsription = this.buildingAreasService.saveBuildingArea(params.id, payload)
-        .subscribe((savedArea) => {
+      // perform request to save updated building area
+      const subsription = this.buildingAreasService
+        .saveBuildingArea(params.id, payload)
+        .subscribe((savedArea: BuildingArea) => {
+          // sync service stored objects with API response
           this.buildingAreasService.buildingAreas.next(
             this.buildingAreas.map((box) => box.id === savedArea.id ? savedArea : box)
           );
+
           // trigger event to show synced box on sidebar after dragend
           this.rhsService.nextProps({
             type: SidebarPropType.buildingArea,
             value: savedArea
           });
+
           subsription.unsubscribe();
         });
     }

@@ -48,18 +48,12 @@ be used in both cases, whether we store new or update existing entity.
 ### TODO steps.
 | STATUS |      TODO     |
 | ------ |:-------------:|
-|  DONE  | 1) Frontend part is located in \acad-repo-design\acad-utils\src\main\webapp\acad-frontend folder. Currently available only 1-st schema (with id = 1). <br> When we enter editor of such schema, we need to get {@see `Schema`} object and based on it property draw grid.(here is just panel). <br>Left side panel list top level objects and include buttons to add new objects (here is just panel, filling in next steps). <br>Right side panel includes property of selected object (TODO in step 2, here is currently just a panel). |
-
-|  DONE  | 2) Add support of Schema properties representation at right side panel, makes them editable and with possibility to store updated properties, (with possibility to apply same logic for any other object). |
-
-|  DONE  | 3) Add support and drawing of objects: Building Areas and Boxes (check entities package and JavaDoc to classes for more information). <br> Be sure that right side panel properties are changeable, and changes stored if save button is pressed, or reverted if object is deselected. All changes that influence on position \ size \ color should be visible during changes. |
-
-| NOT DONE | 4) Add support and drawing of objects: Networks, StepPoints, Connected Lines (check entities package and JavaDoc to classes for more information). Same manipulations with properties support as in 3 point. |
-
-| NOT DONE | 5) Add support of adding new objects and saving them with changed properties to back-end. |
-
-| NOT DONE | 6) Add possibility to move \ rotate objects, linked objects together. |
-
-| NOT DONE | 7) Add support of InsideBoxes. |
+|  DONE  | Frontend part is located in \acad-repo-design\acad-utils\src\main\webapp\acad-frontend folder. <br>Currently available only 1-st schema (with id = 1). <br> When we enter editor of such schema, we need to get {@see `Schema`} object and draw grid. <br>Left side panel list top level objects and include buttons to add new objects. <br>Right side panel includes property of selected object |
+|  DONE  | Add support of Schema properties representation at right side panel, makes them editable and with possibility to store updated properties, (with possibility to apply same logic for any other object). |
+|  DONE  | Add support and drawing of objects: Building Areas and Boxes (check entities package and JavaDoc to classes for more information). <br> Be sure that right side panel properties are changeable, and changes stored if save button is pressed, or reverted if object is deselected. All changes that influence on position \ size \ color should be visible during changes. |
+| NOT DONE | Add support and drawing of objects: Networks, StepPoints, Connected Lines (check entities package and JavaDoc to classes for more information). Same manipulations with properties support as in 3 point. |
+| NOT DONE | Add support of adding new objects and saving them with changed properties to back-end. |
+| NOT DONE | Add possibility to move \ rotate objects, linked objects together. |
+| NOT DONE | Add support of InsideBoxes. |
 
 TODO: ....

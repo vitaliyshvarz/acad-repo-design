@@ -1,5 +1,5 @@
 // Platform imports
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 // Models
@@ -15,7 +15,7 @@ import { SchemasService } from './../../../shared/services/schemas/schemas.servi
 
 /**
  * @description
- * This component should take care about CRUD boxes options
+ * This component should take care about CRUD areas options
  */
 @Component({
   selector: 'app-building-areas-view',
@@ -39,7 +39,7 @@ import { SchemasService } from './../../../shared/services/schemas/schemas.servi
     }
   `]
 })
-export class BuildingAreasViewComponent implements OnInit {
+export class BuildingAreasViewComponent implements OnInit, OnDestroy {
   @Input() buildingAreas: BuildingArea[] = [];
 
   private subscriptions: Subscription[] = [];
@@ -57,6 +57,10 @@ export class BuildingAreasViewComponent implements OnInit {
     this.subscriptions.push(this.dragHelper
       .onDragEnd()
       .subscribe((params: DragCallbackProps) => this.dragEndCallback(params)));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   /**
@@ -98,14 +102,11 @@ export class BuildingAreasViewComponent implements OnInit {
         .subscribe((savedArea: BuildingArea) => {
           // sync service stored objects with API response
           this.buildingAreasService.buildingAreas.next(
-            this.buildingAreas.map((box) => box.id === savedArea.id ? savedArea : box)
+            this.buildingAreas.map((area) => area.id === savedArea.id ? savedArea : area)
           );
 
-          // trigger event to show synced box on sidebar after dragend
-          this.rhsService.nextProps({
-            type: SidebarPropType.buildingArea,
-            value: savedArea
-          });
+          // trigger event to show synced area on sidebar after dragend
+          this.showAreaOnSidebar(savedArea);
 
           subsription.unsubscribe();
         });

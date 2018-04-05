@@ -5,6 +5,7 @@ import { DragHelperService } from './services/drag-helper/drag-helper.service';
 import { SchemaResolver } from './services/resolvers/schema-resolve/schema-resolve.service';
 import { SchemasService } from './services/schemas/schemas.service';
 import { HttpService } from './services/http/http.service';
+import { UtilsService } from './services/ulils/utils.service';
 
 export const SHARED_SERVICES = [
   HttpService,
@@ -14,4 +15,5 @@ export const SHARED_SERVICES = [
   SchemaResolver,
   DragHelperService,
   RightSidebarService,
+  UtilsService,
 ];

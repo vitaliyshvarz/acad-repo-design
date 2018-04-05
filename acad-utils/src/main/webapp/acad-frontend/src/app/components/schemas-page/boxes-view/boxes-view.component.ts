@@ -1,5 +1,5 @@
 // Platform imports
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 // Models
@@ -35,7 +35,7 @@ import { SchemasService } from './../../../shared/services/schemas/schemas.servi
     }
   `]
 })
-export class BoxesViewComponent implements OnInit {
+export class BoxesViewComponent implements OnInit, OnDestroy {
   @Input() boxes: Box[] = [];
 
   subscriptions: Subscription[] = [];
@@ -49,6 +49,10 @@ export class BoxesViewComponent implements OnInit {
 
   ngOnInit() {
     this.createBoxInteraction();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   showBoxOnSidebar(box: Box): void {
@@ -79,10 +83,9 @@ export class BoxesViewComponent implements OnInit {
           this.boxesService.boxes.next(
             this.boxes.map((box) => box.id === savedBox.id ? savedBox : box)
           );
-          this.rhsService.nextProps({
-            type: SidebarPropType.box,
-            value: savedBox
-          });
+
+          this.showBoxOnSidebar(savedBox);
+
           subsription.unsubscribe();
         });
     }

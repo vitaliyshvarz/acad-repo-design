@@ -1,0 +1,104 @@
+<form
+  [formGroup]="boxForm"
+  (ngSubmit)="saveBox()"
+  class="form"
+>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Text"
+      formControlName="text">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="number"
+      placeholder="Position X"
+      formControlName="posX">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="number"
+      placeholder="Position Y"
+      formControlName="posY">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="number"
+      placeholder="Size X"
+      formControlName="sizeX">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="number"
+      placeholder="Size Y"
+      formControlName="sizeY">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="number"
+      placeholder="Size Z"
+      formControlName="sizeZ">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select
+      placeholder="Body color"
+      formControlName="bodyColor"
+    >
+      <mat-option
+        *ngFor="let color of colors"
+        [value]="color.value"
+        [style.backgroundColor]="color.value"
+        [style.color]="color.name === 'White' ? '#000' : '#fff'"
+      >
+        {{ color.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select
+      placeholder="Border color"
+      formControlName="borderColor"
+    >
+      <mat-option
+        *ngFor="let color of colors"
+        [value]="color.value"
+        [style.backgroundColor]="color.value"
+        [style.color]="color.name === 'White' ? '#000' : '#fff'"
+      >
+        {{ color.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      type="number"
+      placeholder="Cols count"
+      formControlName="cols">
+  </mat-form-field>
+
+  <mat-checkbox formControlName="keepArea">Should keep area</mat-checkbox>
+
+  <mat-checkbox formControlName="solid">Solid</mat-checkbox>
+
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+  >
+    SAVE
+  </button>
+</form>

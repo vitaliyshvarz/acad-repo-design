@@ -1,21 +1,30 @@
 
-<mat-card class="sidebar">
-  <div class="sidebar-props" *ngIf="form">
-    <form [formGroup]="form">
-      <mat-form-field *ngFor="let prop of sidebarProps">
-        <input
-          matInput
-          [placeholder]="prop"
-          [formControlName]="prop">
-      </mat-form-field>
-    </form>
-  </div>
-  <button
-    mat-raised-button
-    color="primary"
-    *ngIf="sidebarProps.length"
-    (click)="saveSidebarProps()"
+<mat-card
+  class="sidebar"
+  [ngSwitch]="currentProps.type"
+>
+  <app-schema-form
+    class="sidebar-props"
+    *ngSwitchCase="propTypes.schema"
+    [schema]="currentProps.value"
+  ></app-schema-form>
+
+  <app-box-form
+    class="sidebar-props"
+    *ngSwitchCase="propTypes.box"
+    [box]="currentProps.value"
+  ></app-box-form>
+
+  <app-building-area-form
+    class="sidebar-props"
+    *ngSwitchCase="propTypes.buildingArea"
+    [buildingArea]="currentProps.value"
+  ></app-building-area-form>
+
+  <h3
+    *ngSwitchDefault
+    class="sidebar-placeholder"
   >
-    SAVE
-  </button>
+    Select item to edit
+  </h3>
 </mat-card>

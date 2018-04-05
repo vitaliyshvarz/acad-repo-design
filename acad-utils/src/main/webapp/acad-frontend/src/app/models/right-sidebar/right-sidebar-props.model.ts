@@ -3,10 +3,10 @@ import { Box } from './../box/box.model';
 import { Schema } from './../schema.model';
 
 export enum SidebarPropType {
+  none,
   schema,
   box,
   buildingArea,
-  none = ''
 }
 
 export interface SidebarProps {
